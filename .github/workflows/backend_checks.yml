@@ -1,0 +1,47 @@
+name: Rails verifications
+on:
+  push:
+    paths:
+      - "**"
+
+jobs:
+  rspec:
+    name: RSpec
+    runs-on: ubuntu-20.04
+    env:
+      BUNDLE_BUILD__NOKOGIRI: --use-system-libraries
+      RAILS_ENV: test
+      DATABASE_HOST: localhost
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      TZ: America/Sao_Paulo
+    services:
+      postgres:
+        image: postgres:16-alpine
+        ports: ['5432:5432']
+        env:
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: postgres
+          POSTGRES_DATABASE: cart_bomba_test
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Install nokogiri dependencies
+        run: |
+          sudo apt-get install libxslt1-dev
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Create database
+        run: bundle exec rails db:create
+
+      - name: Migrate database
+        run: bundle exec rails db:migrate
+
+      - name: Run tests
+        run: bundle exec rspec spec
