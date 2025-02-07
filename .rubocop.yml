@@ -1,0 +1,72 @@
+AllCops:
+  ruby-version: 3.3.1
+  NewCops: enable
+  Exclude:
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - 'rails.rb'
+    - 'db/*schema.rb'
+    - 'config.ru'
+    - 'bin/*'
+    - Rakefile
+  SuggestExtensions: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+Style/ClassAndModuleChildren:
+  Exclude:
+    - '**/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'spec/**/*'
+Style/StringLiterals:
+  Exclude:
+    - 'db/*migrate/*'
+    - 'config/**/*'
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'db/*migrate/*'
+    - 'config/**/*'
+Layout/LineLength:
+  Exclude:
+    - 'db/*migrate/*'
+    - 'config/**/*'
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - 'db/*migrate/*'
+    - 'spec/**/*'
+    - 'config/**/*'
+    - 'app/models/*'
+    - 'test/**/*'
+    - 'app/mailers/**/*'
+Style/GlobalStdStream:
+  Exclude:
+    - 'config/environments/*'
+Metrics/AbcSize:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+Metrics/MethodLength:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+Metrics/ClassLength:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+
+# Naming is disable for initializers because they can add new classes to already existing rails methods
+Naming:
+  Exclude:
+    - 'config/initializers/*'
