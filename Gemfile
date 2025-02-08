@@ -13,6 +13,9 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'redis', '~> 5.2'
 gem 'sidekiq', '~> 7.2', '>= 7.2.4'
 gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
+# Use hiredis to get better performance than the "redis" gem
+gem 'hiredis'
+gem 'redis-rails'
 
 gem 'guard'
 gem 'guard-livereload', require: false
