@@ -17,6 +17,9 @@ A aplicação foi desenvolvida com as seguintes dependências:
 
 ## **Configuração do Ambiente**
 - dado as dependencias rodar os comandos
+```bash
+mv env-example .env
 bin/rails db:create db:migrate db:seed
 bin/setup
 bin/dev
+```
