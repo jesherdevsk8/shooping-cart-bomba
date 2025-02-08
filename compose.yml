@@ -7,8 +7,8 @@ services:
       tty: true # Enables debugging capabilities when attached to this container.
       stdin_open: true
       build: .
-      command: bash -c 'rails s -b 0.0.0.0'
-      image: cart-bomba
+      command: bash -c 'bin/dev'
+      image: shopping_cart
       restart: unless-stopped
       volumes:
         - .:/app
@@ -34,9 +34,10 @@ services:
       volumes:
         - postgres_data:/var/lib/postgresql/data
     redis:
-        image: redis:7.0.15-alpine
+        image: redis:6.2.0-alpine
         ports:
         - '6379:6379'
+        restart: always
         volumes:
         - redis_data:/data
 volumes:
