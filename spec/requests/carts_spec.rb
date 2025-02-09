@@ -20,8 +20,6 @@ RSpec.describe CartsController, type: :request do
       get carts_url, as: :json
 
       expect(response).to be_successful
-      # TODO
-      # expect(JSON.parse(response.body)).to eq(1)
     end
   end
 
@@ -128,6 +126,24 @@ RSpec.describe CartsController, type: :request do
 
         expect(current_cart.items.find_by(product_id: product.id)&.product_id).to eq(product.id)
         expect(response).to be_a_bad_request
+      end
+    end
+
+    describe 'When updating item inside cart reactivate abandoned cart' do
+      let(:abandoned_cart) { create(:cart, status: :abandoned, updated_at: 4.hours.ago) }
+      let(:product) { create(:product, price: 10.0) }
+      let(:item) { build(:cart_item, cart: cart, product: product, quantity: 2) }
+
+      it 'reactivates the cart when a cart item is saved' do
+        expect(Cart.abandoned.exists?(abandoned_cart.id)).to be_truthy
+        post carts_url, params: { product_id: product.id, quantity: 1 }, as: :json
+        expect(Cart.find(JSON.parse(response.body)['id']).status).to eq('active')
+
+        another_abandoned = create(:cart, status: :abandoned, updated_at: 4.hours.ago)
+        expect(Cart.abandoned.exists?(another_abandoned.id)).to be_truthy
+
+        patch add_item_carts_url, params: { product_id: product.id, quantity: 1 }, as: :json
+        expect(Cart.find(JSON.parse(response.body)['id']).status).to eq('active')
       end
     end
   end

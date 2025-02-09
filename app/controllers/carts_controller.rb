@@ -27,6 +27,8 @@ class CartsController < ApplicationController
     return render_bad_request if (quantity = cart_params[:quantity].to_i) <= 0
 
     cart_item.quantity = quantity
+    cart_item.unit_price = @product.price
+    cart_item.total_price = cart_item.quantity * cart_item.unit_price
 
     if cart_item.save
       render(json: cart_response, status: :ok)
