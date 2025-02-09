@@ -1,0 +1,3 @@
+mask_as_abandoned_and_cleanup:
+  cron: "0 */3 * * *"  # Executa a cada 3 horas
+  class: "MarkCartAsAbandonedJob"
