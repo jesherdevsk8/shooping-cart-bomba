@@ -4,7 +4,10 @@
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   ./bin/rails db:prepare
   
-  bundle exec sidekiq &
+  # nao criar o worker se ele estiver rodando
+  if [ -z "$(pgrep -f sidekiq)" ]; then
+    bundle exec sidekiq &
+  fi
 fi
 
 exec "${@}"
