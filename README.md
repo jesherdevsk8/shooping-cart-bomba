@@ -36,6 +36,9 @@ docker compose attach web
 
 ## **Documentação da Aplicação**
 
+## Baixar a collection do Insomnia
+[Insomnia json Collection](shopping-cart-insomnia.json)
+
 ## Api rodando em produção com dados fakes para teste
 ## products root path
 GET https://livro-caixa-shooping-cart-bomba.oz9uws.easypanel.host
