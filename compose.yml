@@ -1,13 +1,9 @@
-# version está depreciado, nao é necessario mais usar.
-# usar: docker compose up --build ou docker compose up --build -d
-# version: '3'
-
 services:
   web:
-    tty: true  # Enables debugging capabilities when attached to this container.
+    tty: true
     stdin_open: true
     build: .
-    command: bash -c 'bin/dev'
+    command: bash -c 'bin/setup && bin/rails db:seed && ./bin/docker-entrypoint ./bin/rails server -b 0.0.0.0'
     image: shopping_cart
     restart: unless-stopped
     volumes:
@@ -19,7 +15,7 @@ services:
       - redis
     environment:
       RAILS_ENV: development
-      DATABASE_HOST: 127.0.0.1
+      DATABASE_HOST: db
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
       REDIS_URL: redis://redis:6379/0
@@ -61,4 +57,38 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  test:
+    command: bundle exec rspec
+    image: shopping_cart
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+    environment:
+      RAILS_ENV: test
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      REDIS_URL: redis://redis:6379/0
 
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2.0-alpine
+    ports:
+      - '6379:6379'
+    restart: always
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:

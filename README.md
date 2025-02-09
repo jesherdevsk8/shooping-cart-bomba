@@ -18,6 +18,7 @@ A aplicação foi desenvolvida com as seguintes dependências:
 ## **Configuração do Ambiente**
 - dado as dependencias rodar os comandos
 ```bash
+git clone https://github.com/jesherdevsk8/shooping-cart-bomba.git && cd shooping-cart-bomba
 mv env-example .env
 bin/rails db:create db:migrate db:seed
 bin/setup
@@ -30,6 +31,7 @@ bin/dev
 
 - rodar os comandos
 ```bash
+git clone https://github.com/jesherdevsk8/shooping-cart-bomba.git && cd shooping-cart-bomba
 docker compose up --build -d
 docker compose attach web
 ```
