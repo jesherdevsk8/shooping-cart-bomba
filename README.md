@@ -40,6 +40,9 @@ docker compose attach web
 ## products root path
 GET https://livro-caixa-shooping-cart-bomba.oz9uws.easypanel.host
 
+## sidekiq
+GET https://livro-caixa-shooping-cart-bomba.oz9uws.easypanel.host/sidekiq/busy
+
 ## listar itens dentro do carrinho de compras
 GET https://livro-caixa-shooping-cart-bomba.oz9uws.easypanel.host/cart
 
