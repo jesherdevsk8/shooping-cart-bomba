@@ -20,43 +20,6 @@ services:
       DATABASE_PASSWORD: postgres
       REDIS_URL: redis://redis:6379/0
 
-  db:
-    image: postgres:16-alpine
-    environment:
-      DATABASE_HOST: 127.0.0.1
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-    ports:
-      - '5432:5432'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:6.2.0-alpine
-    ports:
-      - '6379:6379'
-    restart: always
-    volumes:
-      - redis_data:/data
-
-  sidekiq:
-    image: shopping_cart
-    command: bundle exec sidekiq
-    restart: always
-    depends_on:
-      - redis
-      - db
-      - web
-    environment:
-      RAILS_ENV: development
-      DATABASE_HOST: 127.0.0.1
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      REDIS_URL: redis://redis:6379/0
-
-volumes:
-  postgres_data:
-  redis_data:
   test:
     command: bundle exec rspec
     image: shopping_cart
