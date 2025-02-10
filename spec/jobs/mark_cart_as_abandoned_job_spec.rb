@@ -9,8 +9,6 @@ RSpec.describe MarkCartAsAbandonedJob, type: :job do
     let!(:cart) { create(:cart, updated_at: 4.days.ago) }
 
     describe 'when performing job' do
-      let!(:cart) { create(:cart, updated_at: 4.hours.ago) }
-
       it 'calls mark_as_abandoned and cleanup_abandoned on Cart' do
         expect(Cart.active.where('updated_at < ?', 3.hours.ago).size).to eq(1)
 
