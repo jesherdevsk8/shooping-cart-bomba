@@ -11,7 +11,7 @@ A aplicação foi desenvolvida com as seguintes dependências:
 - **Ruby**: 3.3.1
 - **Rails**: 7.1.3.2
 - **PostgreSQL**: 16
-- **Redis**: 6.2.6
+- **Redis**: 7.0.15
 
 ---
 
