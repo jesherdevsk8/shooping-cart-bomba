@@ -49,7 +49,7 @@ class CartsController < ApplicationController
   private
 
   def validate_product_presence
-    @product ||= Product.find(cart_params[:product_id])
+    @product ||= Product.find_by_id(cart_params[:product_id])
 
     render_not_found unless @product
   end

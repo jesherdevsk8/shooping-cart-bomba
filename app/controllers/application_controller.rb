@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  before_action :validate_body_presence, only: :create
+  before_action :validate_body_presence, only: %i[create update]
   before_action :current_cart
 
   def render_not_found
